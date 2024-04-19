@@ -1,6 +1,6 @@
 package com.scaler.taskmanager.services;
 
-import com.scaler.task_manager.entities.TaskEntity;
+import com.scaler.taskmanager.entities.TaskEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

@@ -1,8 +1,8 @@
 package com.scaler.taskmanager.controllers;
 
-import com.scaler.task_manager.dtos.CreateTaskDTO;
-import com.scaler.task_manager.entities.TaskEntity;
-import com.scaler.task_manager.services.TaskService;
+import com.scaler.taskmanager.dtos.CreateTaskDTO;
+import com.scaler.taskmanager.entities.TaskEntity;
+import com.scaler.taskmanager.services.TaskService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
