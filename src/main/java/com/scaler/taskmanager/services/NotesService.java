@@ -26,7 +26,7 @@ public class NotesService {
 
     public List<NoteEntity> getNotesForTask(int taskId){
         TaskEntity task = taskService.getTaskById(taskId);
-        if(task != null){
+        if(task == null){
             return null;
         }
         if(taskNotesHolders.get(taskId) == null){
@@ -37,7 +37,7 @@ public class NotesService {
 
     public NoteEntity addNoteForTask(int taskId, String title, String body){
         TaskEntity task = taskService.getTaskById(taskId);
-        if(task != null){
+        if(task == null){
             return null;
         }
         if(taskNotesHolders.get(taskId) == null){
