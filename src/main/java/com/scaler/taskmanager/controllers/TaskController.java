@@ -2,9 +2,12 @@ package com.scaler.taskmanager.controllers;
 
 import com.scaler.taskmanager.dtos.CreateTaskDTO;
 import com.scaler.taskmanager.dtos.ErrorResponseDTO;
+import com.scaler.taskmanager.dtos.TaskResponceDTO;
 import com.scaler.taskmanager.dtos.UpdateTaskDTO;
 import com.scaler.taskmanager.entities.TaskEntity;
+import com.scaler.taskmanager.services.NotesService;
 import com.scaler.taskmanager.services.TaskService;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,9 +19,12 @@ import java.util.List;
 @RequestMapping("/tasks")
 public class TaskController {
     private final TaskService taskService;
+    private final NotesService notesService;
+    private ModelMapper modelMapper = new ModelMapper();
 
-    public TaskController(TaskService taskService) {
+    public TaskController(TaskService taskService, NotesService notesService) {
         this.taskService = taskService;
+        this.notesService = notesService;
     }
 
     @GetMapping("")
@@ -29,12 +35,15 @@ public class TaskController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TaskEntity> getTaskById(@PathVariable int id) {
+    public ResponseEntity<TaskResponceDTO> getTaskById(@PathVariable("id") Integer id) {
         var task= taskService.getTaskById(id);
+        var notes = notesService.getNotesForTask(id);
         if(task == null)
             return ResponseEntity.notFound().build();
 
-        return ResponseEntity.ok(task);
+        var taskResponse = modelMapper.map(task, TaskResponceDTO.class);
+        taskResponse.setNotes(notes);
+        return ResponseEntity.ok(taskResponse);
     }
 
     @PostMapping("")
@@ -44,7 +53,7 @@ public class TaskController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<TaskEntity> updateTask(@PathVariable int id, @RequestBody UpdateTaskDTO body) throws ParseException {
+    public ResponseEntity<TaskEntity> updateTask(@PathVariable("id") Integer id, @RequestBody UpdateTaskDTO body) throws ParseException {
         var task = taskService.updateTask(id,body.getDescription(),body.getDeadline(),body.getCompleted());
 
         if (task == null)

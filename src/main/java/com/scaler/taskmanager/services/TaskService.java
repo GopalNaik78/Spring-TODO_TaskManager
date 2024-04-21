@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 @Service
 public class TaskService {
-    private ArrayList<TaskEntity> tasks= new ArrayList<TaskEntity>();
+    private ArrayList<TaskEntity> tasks= new ArrayList<>();
     private int taskId=1;
     private final SimpleDateFormat deadlineFormat = new SimpleDateFormat("yyyy-MM-dd");
     

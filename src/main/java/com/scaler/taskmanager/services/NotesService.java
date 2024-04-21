@@ -12,12 +12,11 @@ import java.util.List;
 public class NotesService {
 
     private TaskService taskService;
+    private HashMap<Integer, TaskNotesHolder> taskNotesHolders = new HashMap<>();
 
     public NotesService(TaskService taskService) {
         this.taskService = taskService;
     }
-
-    private HashMap<Integer, TaskNotesHolder> taskNotesHolders = new HashMap<>();
 
 
     class TaskNotesHolder{
